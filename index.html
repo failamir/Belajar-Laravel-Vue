@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Belajar Vue</title>
+<script src="lib/vue.min.js"></script>
+<style type="text/css">
+    .title{
+    color: green;
+    }
+    </style>
+</head>
+<body>
+<div id="app">
+<!-- <h1>{{ message }}</h1> -->
+<!-- <h1 v-html="message"></h1> -->
+<h1 v-bind:class="class_h1">{{message}}</h1>
+<!-- <p>{{ teks }}</p> -->
+</div>
+<div id="app_count">
+<h1>{{ counter }}</h1>
+<button onclick="my_vm.increment()"> + </button>
+</div>
+<script type="text/javascript">
+// var vm = new Vue({
+// el: '#app',
+// data: {
+// message: 'Hello world!',
+// teks: 'Semangat Pagi Indonesia'
+// }
+// })
+var my_vm = new Vue({
+el: '#app_count',
+data: {
+counter: 0
+},
+methods: {
+increment () {
+this.counter++
+}
+}
+})
+var vm = new Vue({
+el: '#app',
+data: {
+message: 'Hello world!',
+// message: "<span style='color:red'>Hello World!</a>",
+class_h1: "title"
+},
+// beforeCreate () {
+// console.log('before create: '+
+// 'message = ' + this.message)
+// },
+// created () {
+// console.log('created: '+
+// 'message = ' + this.message)
+// console.log(this.$data)
+// beforeCreate () {
+// console.log('simple function :'+this)
+// },
+// created: () => {
+// console.log('arrow function :'+this)
+// },
+
+// beforeMount() {
+// console.log('before mount: '+
+// 'el = ' + this.$el.textContent)
+// },
+// mounted() {
+// console.log('mounted: '+
+// 'el = ' + this.$el.textContent)
+// },
+
+beforeUpdate() {
+console.log('before update: '+
+'el = ' + this.$el.textContent)
+},
+updated() {
+console.log('update: '+
+'el = ' + this.$el.textContent)
+},
+
+beforeDestroy () {
+console.log('before destroy')
+},
+destroyed () {
+console.log('destroyed')
+
+},
+
+});
+
+vm.$watch('message', function (newValue, oldValue) {
+console.log('Var message diubah dari '+oldValue+
+' menjadi '+newValue)
+})
+
+//vm.message = 'Selamat Datang!'
+//vm.$destroy()
+// Catatan: penulisan fungsi atau method created() pada kode di atas merupakan shorthand atau bentuk
+// penulisan singkat dari fungsi. Bentuk panjangnya seperti berikut ini.
+// created: function () {
+// console.log('created: '+
+// 'message = ' + this.message)
+// console.log(this.$data)
+// },
+</script>
+<!-- data: {
+name: 'Hafid', // string
+age: 33, // integer
+gender: true, // boolean (Pria)
+hobby: ['coding','sleeping'], // array
+children: {
+1: 'Ammar',
+2: 'Faqih',
+3: 'Syamil'
+} // object
+} -->
+</body>
+</html>
+
+<!-- Di samping itu bisa juga kita gunakan perintah vm.$mount('#app') untuk mengarahkan mount
+point Vue pada saat runtime. -->
+
+<!-- Catatan: kita bisa mengakses properti dan variabel dalam objek vm tersebut, misalnya untuk
+mengakses properti el atau data maka kita bisa gunakan perintah vm.$el atau vm.$data. Adapun
+untuk mengakses variabel message dalam properti data kita bisa gunakan perintah
+vm.$data.message atau langsung vm.message (tanpa tanda dollar). -->
+
+
+<!-- Sifat reactive pada data ini hanya terjadi jika variabel pada properti data telah kita definisikan saat
+objek Vue dibuat, atau dengan kata lain, variabel yang didefinisikan pada saat runtime tidak akan
+This ebook is licensed to Siti Fatonah - fatonmaya@gmail.com - 081805932531
+28 / 503
+memiliki sifat reactive. -->
+<!-- Properti data ini bisa kita akses secara langsung dari dalam objek Vue dengan menggunaan this.$data
+atau this.message, sedangkan jika diakses dari luar objek Vue menggunakan nama variabel objeknya
+vm.$data atau vm.message. -->
+
+<!-- Untuk mencegah perubahan nilai variabel template pada saat runtime, kita bisa gunakan directive v-once.
+<h1 v-once>{{ message }}</h1> -->
+
+<!-- fungsi createElement tidak hanya dapat menciptakan elemen HTML saja namun juga dapat menciptakan
+elemen component (component akan dibahas lebih lanjut pada bab selanjutnya) yang kita buat.
+Misalnya untuk menciptakan elemen Hello.
+render (createElement) {
+return createElement(Hello);
+}
+Penulisan nama fungsi createElement ini kemudian dialiaskan menjadi h, sehingga kita bisa
+menuliskannya sebagai berikut.
+render (h){
+return h(App);
+}
+Atau jika ditulis menggunakan es6 arrow function menjadi sebagai berikut.
+render: h => h(App) -->
+
+<!-- Catatan: jika properti template dan render dua-duanya ada maka properti template akan diabaikan. -->
+
+
